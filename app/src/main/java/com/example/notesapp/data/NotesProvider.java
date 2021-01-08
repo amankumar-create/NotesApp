@@ -54,12 +54,21 @@ public class NotesProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
+
         return null;
     }
 
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        int match =sUrimatcher.match(uri);
+        SQLiteDatabase db = mdbhelper.getReadableDatabase();
+        switch (match){
+            case NOTES:
+                long id =db.insert(NoteContract.NoteEntry.TABLE_NAME,null,values);
+                return ContentUris.withAppendedId(uri,id);
+
+        }
         return null;
     }
 

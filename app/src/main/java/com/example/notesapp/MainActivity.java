@@ -56,30 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Notes.remove(position);
-                ca= new NotesAdapter(MainActivity.this,Notes);
-                listView.setAdapter(ca);
-                SQLiteDatabase sdb= cdbh.getWritableDatabase();
-                SQLiteDatabase cdb = cdbh.getReadableDatabase();
-                Cursor cr = cdb.rawQuery("SELECT * FROM "+ NoteEntry.TABLE_NAME,null);
-                cr.moveToFirst();
-                String first;
-                first= cr.getString(cr.getColumnIndex("id"));
-                sdb.delete(NoteEntry.TABLE_NAME, "id = ?", new String[]{String.valueOf(position+Integer.parseInt(first))});
 
-                return false;
-            }
-        });
 
 
     }
     public void display(){
         Notes.clear();
 
-        SQLiteDatabase cdb = cdbh.getReadableDatabase();
         String cTitle ;
         String cDescription;
         String[] projection = {

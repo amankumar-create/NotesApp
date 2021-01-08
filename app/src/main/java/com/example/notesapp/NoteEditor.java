@@ -33,14 +33,14 @@ public class NoteEditor extends AppCompatActivity {
                 String t= title.getText().toString();
                 String d = description.getText().toString();
 
-                SQLiteDatabase cdb = cdbh.getWritableDatabase();
+
                 ContentValues cv = new ContentValues();
                 cv.put(NoteContract.NoteEntry.TITLE,t);
                 cv.put(NoteContract.NoteEntry.DESCRIPTION,d);
                 Notes.add(new Note(t, d));
 
                 listView.setAdapter(ca);
-                cdb.insert(NoteContract.NoteEntry.TABLE_NAME,null,cv);
+                getContentResolver().insert(NoteContract.NoteEntry.CONTENT_URI,cv);
                 Toast.makeText(NoteEditor.this,"Note added", Toast.LENGTH_SHORT).show();
                 finish();
             }
