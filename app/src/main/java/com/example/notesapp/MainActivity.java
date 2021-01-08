@@ -82,7 +82,14 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase cdb = cdbh.getReadableDatabase();
         String cTitle ;
         String cDescription;
-        Cursor cr = cdb.rawQuery("SELECT * FROM "+ NoteEntry.TABLE_NAME,null);
+        String[] projection = {
+
+                NoteEntry.TITLE,
+                NoteEntry.DESCRIPTION
+        };
+        getContentResolver().query(NoteEntry.CONTENT_URI,projection,null,null,null);
+        Cursor cr =  getContentResolver().query(NoteEntry.CONTENT_URI,projection,null,null,null);
+
         if(cr.getCount()!=0) {
             cr.moveToFirst();
             cTitle = cr.getString(cr.getColumnIndex(NoteEntry.TITLE));
