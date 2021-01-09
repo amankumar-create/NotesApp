@@ -10,6 +10,7 @@ public final class NoteContract {
 
     public static final class NoteEntry implements BaseColumns{
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_NOTES);
+        public static final String ID ="_id";
         public static final String TABLE_NAME = "Notes";
         public static final String TITLE = "title";
         public static final String DESCRIPTION = "description";

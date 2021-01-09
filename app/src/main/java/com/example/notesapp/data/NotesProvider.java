@@ -39,7 +39,7 @@ public class NotesProvider extends ContentProvider {
                 cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case NOTE_ID:
-                selection = "id=?";
+                selection = NoteContract.NoteEntry.ID+"=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;

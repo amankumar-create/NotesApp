@@ -17,7 +17,7 @@ public class NoteDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE "+ NoteEntry.TABLE_NAME+"(id INTEGER PRIMARY KEY AUTOINCREMENT, "+ NoteEntry.TITLE+" TEXT, "+NoteEntry.DESCRIPTION+" TEXT);";
+        String CREATE_TABLE = "CREATE TABLE "+ NoteEntry.TABLE_NAME+ "("+NoteEntry.ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+ NoteEntry.TITLE+" TEXT, "+NoteEntry.DESCRIPTION+" TEXT);";
         db.execSQL(CREATE_TABLE);
     }
 

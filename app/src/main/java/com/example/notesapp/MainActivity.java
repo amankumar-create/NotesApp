@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.example.notesapp.data.NoteContract;
 import com.example.notesapp.data.NoteContract.NoteEntry;
 import com.example.notesapp.data.NoteDbHelper;
+import com.example.notesapp.data.NotesCursorAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -26,8 +27,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
-    static ArrayList<Note> Notes = new ArrayList<>();;
+    static NotesCursorAdapter notesAdapter;
     static NotesAdapter ca ;
     static ListView listView;
     NoteDbHelper cdbh;
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         listView= (ListView) findViewById(R.id.lv);
         display();
 
-        String s= Integer.toString(Notes.size());
-        Log.d("size",s);
 
 
 
@@ -61,33 +59,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void display(){
-        Notes.clear();
 
-        String cTitle ;
-        String cDescription;
         String[] projection = {
-
+                  NoteEntry.ID,
                 NoteEntry.TITLE,
                 NoteEntry.DESCRIPTION
         };
-        getContentResolver().query(NoteEntry.CONTENT_URI,projection,null,null,null);
+
         Cursor cr =  getContentResolver().query(NoteEntry.CONTENT_URI,projection,null,null,null);
+        // Find ListView to populate
+        // Setup cursor adapter using cursor from last step
+         notesAdapter = new NotesCursorAdapter(this,cr);
+        // Attach cursor adapter to the ListView
+        listView.setAdapter(notesAdapter);
 
-        if(cr.getCount()!=0) {
-            cr.moveToFirst();
-            cTitle = cr.getString(cr.getColumnIndex(NoteEntry.TITLE));
-            cDescription = cr.getString(cr.getColumnIndex(NoteEntry.DESCRIPTION));
-            Notes.add(new Note(cTitle, cDescription));
-            while (cr.moveToNext()) {
-                cTitle = cr.getString(cr.getColumnIndex(NoteEntry.TITLE));
-                cDescription = cr.getString(cr.getColumnIndex(NoteEntry.DESCRIPTION));
-                Notes.add(new Note(cTitle, cDescription));
-            }
-        }
-        cr.close();
 
-        ca = new NotesAdapter(this,Notes);
-        listView.setAdapter(ca);
+
         
     }
 
