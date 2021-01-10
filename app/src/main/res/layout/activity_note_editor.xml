@@ -1,49 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NoteEditor"
     android:orientation="vertical"
-    android:paddingTop="60dp"
-    android:background="@drawable/backgb">
-
-    <EditText
-        android:id="@+id/ne"
+    android:paddingHorizontal="5dp"
+    android:padding="10dp"
+    >
+    <include
+        layout="@layout/content_editor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/backg"
-        android:textSize="30dp"
-        android:hint="Title"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:layout_marginBottom="20dp"
+        android:layout_height="match_parent" />
 
-        />
-
-    <EditText
-        android:id="@+id/nr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/backgb"
-        android:hint="Content"
-        android:textSize="25dp"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
-        android:textAlignment="gravity"
-
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
+    <ImageView
         android:id="@+id/s"
-        android:layout_marginHorizontal="150dp"
-        android:layout_marginTop="450dp" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:scaleType="fitXY"
+        android:src="@drawable/checked"
+        android:layout_marginLeft="15dp"/>
+
+    <ImageView
+
+        android:layout_width="40dp"
+        android:id="@+id/del"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/s"
+        android:background="@drawable/delete"
+        android:scaleType="fitXY" />
 
 
-</LinearLayout></ScrollView>
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.notesapp.R;
@@ -28,7 +29,9 @@ public class NotesCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView tvName= (TextView)view.findViewById(R.id.tvName);
         TextView tvNumber= (TextView)view.findViewById(R.id.tvNumber);
+
         tvName.setText(cursor.getString(cursor.getColumnIndex(NoteContract.NoteEntry.TITLE)));
         tvNumber.setText(cursor.getString(cursor.getColumnIndex(NoteContract.NoteEntry.DESCRIPTION)));
+
     }
 }

@@ -7,20 +7,22 @@
     android:layout_marginHorizontal="10dp"
     android:layout_marginBottom="20dp">
     <TextView
-        android:layout_width="match_parent"
-        android:id="@+id/tvName"
-        android:layout_height="wrap_content"
-        android:background="@drawable/backg"
-        android:textColor="@color/white"
-        android:textSize="25dp"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp"/>
+            android:layout_width="match_parent"
+            android:id="@+id/tvName"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backg"
+            android:textColor="@color/color1"
+            android:textSize="25dp"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"/>
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/tvNumber"
-        android:textColor="@color/white"
+        android:textColor="@color/color2"
         android:textSize="20dp"
         android:background="@drawable/backgb"
         android:paddingHorizontal="5dp"

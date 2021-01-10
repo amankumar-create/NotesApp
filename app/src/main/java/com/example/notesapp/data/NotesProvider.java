@@ -78,6 +78,15 @@ public class NotesProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int match = sUrimatcher.match(uri);
+        SQLiteDatabase db= mdbhelper.getWritableDatabase();
+        switch(match){
+            case NOTE_ID:
+                selection = NoteContract.NoteEntry.ID+"=?";
+                int n= db.delete(NoteContract.NoteEntry.TABLE_NAME,selection,new String[]{String.valueOf(ContentUris.parseId(uri))});
+                getContext().getContentResolver().notifyChange(uri,null);
+                break;
+        }
         return 0;
     }
 
@@ -89,7 +98,9 @@ public class NotesProvider extends ContentProvider {
             case NOTE_ID:
                 selection = NoteContract.NoteEntry.ID+"=?";
                 int n = db.update(NoteContract.NoteEntry.TABLE_NAME,values,selection,new String[]{String.valueOf(ContentUris.parseId(uri))});
-        }
+                getContext().getContentResolver().notifyChange(uri,null);
+                break;
+         }
         return 0;
     }
 }

@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.notesapp.data.NoteContract;
@@ -32,7 +34,7 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
         setContentView(R.layout.activity_note_editor);
         Intent intent = getIntent();
         uri =intent.getData();
-        Button save = (Button)findViewById(R.id.s);
+        ImageView save = (ImageView) findViewById(R.id.s);
         title =(EditText)findViewById(R.id.ne);
         description = (EditText)findViewById(R.id.nr);
 
@@ -56,13 +58,28 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
                 cv.put(NoteContract.NoteEntry.TITLE,t);
                 cv.put(NoteContract.NoteEntry.DESCRIPTION,d);
                 if(editing==true){
+                    if(!(TextUtils.isEmpty(t)&&TextUtils.isEmpty(d)))
                     getContentResolver().update(uri,cv,null,null);
+                    else
+                        getContentResolver().delete(uri,null,null);
                 }
                 else {
-                    getContentResolver().insert(NoteContract.NoteEntry.CONTENT_URI, cv);
-                    Toast.makeText(NoteEditor.this, "Note added", Toast.LENGTH_SHORT).show();
+                    if(!(TextUtils.isEmpty(t)&&TextUtils.isEmpty(d))) {
+                        getContentResolver().insert(NoteContract.NoteEntry.CONTENT_URI, cv);
+                        Toast.makeText(NoteEditor.this, "Note added", Toast.LENGTH_SHORT).show();
+                    }
+                    else  Toast.makeText(NoteEditor.this, "Note was empty hence not added", Toast.LENGTH_SHORT).show();
                 }
                 finish();
+            }
+        });
+        ImageView del = (ImageView)findViewById(R.id.del);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContentResolver().delete(uri,null,null);
+                finish();
+
             }
         });
     }
