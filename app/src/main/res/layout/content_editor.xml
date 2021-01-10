@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:paddingHorizontal="5dp"
     android:paddingTop="20dp"
+    android:paddingBottom="35dp"
     >
 
     <EditText
@@ -15,29 +16,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/backgro"
+        android:layout_margin="5dp"
         android:textSize="30dp"
         android:hint="Title"
-        android:textColorHint="@color/white"
-        android:textColor="@color/white"
+        android:textColorHint="@color/color1"
+        android:textColor="@color/color1"
         android:paddingHorizontal="10dp"
         android:layout_marginBottom="10dp"
 
         />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@drawable/bac"
 
+        >
     <EditText
         android:id="@+id/nr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+         android:layout_margin="5dp"
         android:hint="Content"
         android:textSize="25dp"
-        android:textColorHint="@color/white"
-        android:textColor="@color/black"
+        android:textColorHint="@color/color2"
+        android:textColor="@color/color2"
         android:textAlignment="gravity"
 
         />
-
+   </ScrollView>
 
 
 </LinearLayout>

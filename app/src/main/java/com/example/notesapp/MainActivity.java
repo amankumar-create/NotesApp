@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         getSupportLoaderManager().initLoader(0, null, this);
 
-
-
         listView= (ListView) findViewById(R.id.lv);
 
          notesAdapter= new NotesCursorAdapter(this,null);
