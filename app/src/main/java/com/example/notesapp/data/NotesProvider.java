@@ -7,6 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ public class NotesProvider extends ContentProvider {
                 cursor=null;
                 break;
         }
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
 
         return cursor;
     }
@@ -62,10 +64,12 @@ public class NotesProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
         int match =sUrimatcher.match(uri);
-        SQLiteDatabase db = mdbhelper.getReadableDatabase();
+        SQLiteDatabase db = mdbhelper.getWritableDatabase();
         switch (match){
             case NOTES:
                 long id =db.insert(NoteContract.NoteEntry.TABLE_NAME,null,values);
+                getContext().getContentResolver().notifyChange(uri,null);
+                Log.i("change notified", "insert: ");
                 return ContentUris.withAppendedId(uri,id);
 
         }
@@ -79,6 +83,13 @@ public class NotesProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int match = sUrimatcher.match(uri);
+        SQLiteDatabase db= mdbhelper.getWritableDatabase();
+        switch(match){
+            case NOTE_ID:
+                selection = NoteContract.NoteEntry.ID+"=?";
+                int n = db.update(NoteContract.NoteEntry.TABLE_NAME,values,selection,new String[]{String.valueOf(ContentUris.parseId(uri))});
+        }
         return 0;
     }
 }
