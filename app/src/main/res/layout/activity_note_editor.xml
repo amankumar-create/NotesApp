@@ -24,7 +24,8 @@
         android:background="@color/white"
         android:scaleType="fitXY"
         android:src="@drawable/checked"
-        android:layout_marginLeft="15dp"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="5dp"/>
 
     <ImageView
 
@@ -34,7 +35,18 @@
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/s"
         android:background="@drawable/delete"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:id="@+id/action"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"/>
 
 
 

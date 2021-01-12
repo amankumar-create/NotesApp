@@ -22,11 +22,15 @@ public class NotesCursorAdapter extends CursorAdapter {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
 
+        //Inflate new views initially
         return LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
+        /*Bind the views with data*/
+
         TextView tvName= (TextView)view.findViewById(R.id.tvName);
         TextView tvNumber= (TextView)view.findViewById(R.id.tvNumber);
 

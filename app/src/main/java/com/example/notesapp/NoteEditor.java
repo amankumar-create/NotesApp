@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.notesapp.data.NoteContract;
@@ -33,18 +34,18 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_editor);
         Intent intent = getIntent();
-        uri =intent.getData();
+        uri =intent.getData();  // uri attached with the intent which is of the long pressed note in main activity
         ImageView save = (ImageView) findViewById(R.id.s);
         title =(EditText)findViewById(R.id.ne);
         description = (EditText)findViewById(R.id.nr);
-
+        TextView action = (TextView)findViewById(R.id.action);
         if(uri!=null){
-            setTitle("Edit Note");
             getSupportLoaderManager().initLoader(0, null,this);
+            action.setText("Edit Pet");
             editing=true;
         }
         else{
-            setTitle("Add new Note");
+            action.setText("Add new Note");
             adding=true;
         }
         save.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +62,7 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
                     if(!(TextUtils.isEmpty(t)&&TextUtils.isEmpty(d)))
                     getContentResolver().update(uri,cv,null,null);
                     else
-                        getContentResolver().delete(uri,null,null);
+                        getContentResolver().delete(uri,null,null); // if both title and description of note are empty then delete the note
                 }
                 else {
                     if(!(TextUtils.isEmpty(t)&&TextUtils.isEmpty(d))) {
@@ -77,7 +78,7 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getContentResolver().delete(uri,null,null);
+                getContentResolver().delete(uri,null,null); // delete the note when delete view is clicked
                 finish();
 
             }
@@ -90,7 +91,7 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
         return new CursorLoader(this, uri ,new String[]{
                 NoteContract.NoteEntry.ID,
                 NoteContract.NoteEntry.TITLE,
-                NoteContract.NoteEntry.DESCRIPTION},null,null,null);
+                NoteContract.NoteEntry.DESCRIPTION},null,null,null); // create the loader with the  uri
     }
 
 
@@ -101,8 +102,8 @@ public class NoteEditor extends AppCompatActivity implements LoaderManager.Loade
             return;
         }
         if (data.moveToFirst()) {
-            title.setText(data.getString(data.getColumnIndex(NoteContract.NoteEntry.TITLE)));
-            description.setText(data.getString(data.getColumnIndex(NoteContract.NoteEntry.DESCRIPTION)));
+            title.setText(data.getString(data.getColumnIndex(NoteContract.NoteEntry.TITLE))); // set the data to edit text (Title) after loading
+            description.setText(data.getString(data.getColumnIndex(NoteContract.NoteEntry.DESCRIPTION)));// set the data to edit text(desciption)  after loading
         }
 
 

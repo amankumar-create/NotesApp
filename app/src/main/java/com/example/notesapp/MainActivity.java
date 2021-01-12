@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     static NotesCursorAdapter notesAdapter;
-    static NotesAdapter ca ;
     static ListView listView;
     NoteDbHelper cdbh;
     @Override
@@ -43,18 +42,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportLoaderManager().initLoader(0, null, this);
+        getSupportLoaderManager().initLoader(0, null, this); // Intialising cursor loader
 
         listView= (ListView) findViewById(R.id.lv);
 
-         notesAdapter= new NotesCursorAdapter(this,null);
+         notesAdapter= new NotesCursorAdapter(this,null);  //passing null since initially we dont have any data in table hance null as cursor
          listView.setAdapter(notesAdapter);
 
-         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {  //to get intented to editor activity on long click
              @Override
              public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                  Intent intent = new Intent(MainActivity.this,NoteEditor.class);
-                 intent.setData(new ContentUris().withAppendedId(NoteEntry.CONTENT_URI,id));
+                 intent.setData(new ContentUris().withAppendedId(NoteEntry.CONTENT_URI,id)); // sending uri of pressed note along with intent to edit or delete the note
                  startActivity(intent);
                  return false;
              }
@@ -86,13 +85,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-          notesAdapter.swapCursor(data);
+          notesAdapter.swapCursor(data); // if cursor was changed then replace the old cursor with new cursor
         Log.i("TAG", "onLoadFinished: ");
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-          notesAdapter.swapCursor(null);
+          notesAdapter.swapCursor(null); // loader was reset set the cursor to null
         Log.i("TAG", "onLoaderReset: ");
     }
 }

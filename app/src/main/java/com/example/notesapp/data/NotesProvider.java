@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 
 public class NotesProvider extends ContentProvider {
     private NoteDbHelper mdbhelper;
-    public static final int NOTES=100;
-    public static final int NOTE_ID =101;
+    public static final int NOTES=100;  // Integer code for uri type pointing whole notes table
+    public static final int NOTE_ID =101; // Integer code for uri type pointing whole notes table
     public static final UriMatcher sUrimatcher= new UriMatcher(UriMatcher.NO_MATCH);
     static {
         sUrimatcher.addURI(NoteContract.CONTENT_AUTHORITY,NoteContract.PATH_NOTES, NOTES ); //URI FOR WHOLE NOTES TABLE
@@ -37,12 +37,18 @@ public class NotesProvider extends ContentProvider {
         int match = sUrimatcher.match(uri);
         switch (match) {
             case NOTES:
-                cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+
+                //If uri points to whole pets table
+
+                cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);//query mehod on database
                 break;
             case NOTE_ID:
+
+                // If uri points to a specific row in table
+
                 selection = NoteContract.NoteEntry.ID+"=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = db.query(NoteContract.NoteEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder); //query mehod on database
                 break;
             default:
                 cursor=null;
@@ -68,7 +74,7 @@ public class NotesProvider extends ContentProvider {
         switch (match){
             case NOTES:
                 long id =db.insert(NoteContract.NoteEntry.TABLE_NAME,null,values);
-                getContext().getContentResolver().notifyChange(uri,null);
+                getContext().getContentResolver().notifyChange(uri,null);  // to notify change in database where uri points
                 Log.i("change notified", "insert: ");
                 return ContentUris.withAppendedId(uri,id);
 
@@ -84,7 +90,7 @@ public class NotesProvider extends ContentProvider {
             case NOTE_ID:
                 selection = NoteContract.NoteEntry.ID+"=?";
                 int n= db.delete(NoteContract.NoteEntry.TABLE_NAME,selection,new String[]{String.valueOf(ContentUris.parseId(uri))});
-                getContext().getContentResolver().notifyChange(uri,null);
+                getContext().getContentResolver().notifyChange(uri,null);// to notify change in database where uri points
                 break;
         }
         return 0;
@@ -97,8 +103,8 @@ public class NotesProvider extends ContentProvider {
         switch(match){
             case NOTE_ID:
                 selection = NoteContract.NoteEntry.ID+"=?";
-                int n = db.update(NoteContract.NoteEntry.TABLE_NAME,values,selection,new String[]{String.valueOf(ContentUris.parseId(uri))});
-                getContext().getContentResolver().notifyChange(uri,null);
+                int n = db.update(NoteContract.NoteEntry.TABLE_NAME,values,selection,new String[]{String.valueOf(ContentUris.parseId(uri))}); //update method on database object
+                getContext().getContentResolver().notifyChange(uri,null);// to notify change in database where uri points
                 break;
          }
         return 0;
