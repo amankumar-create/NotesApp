@@ -4,8 +4,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/writing"
+        android:roundIcon="@mipmap/writing"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotesApp">
         <activity
@@ -23,8 +23,8 @@
             ></activity>
         <provider
             android:name=".data.NotesProvider"
-        android:authorities="com.example.notesapp"
-        android:exported="false" />
+            android:authorities="com.example.notesapp"
+            android:exported="false" />
     </application>
 
 </manifest>
